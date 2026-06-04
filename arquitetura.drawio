@@ -1,0 +1,238 @@
+<mxfile host="65bd71144e">
+    <diagram id="k8s-architecture" name="Arquitetura Kubernetes">
+        <mxGraphModel dx="950" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="Arquitetura Kubernetes" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=30;fontStyle=1;fontColor=#172554;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="30" width="640" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="cluster" value="Cluster Kubernetes" style="swimlane;html=1;startSize=36;rounded=1;whiteSpace=wrap;fillColor=#F8FAFC;strokeColor=#1D4ED8;fontColor=#1E3A8A;fontSize=18;fontStyle=1;strokeWidth=3;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="110" width="1320" height="940" as="geometry"/>
+                </mxCell>
+                <mxCell id="cp" value="Control Plane" style="swimlane;html=1;startSize=30;rounded=1;whiteSpace=wrap;fillColor=#EFF6FF;strokeColor=#2563EB;fontColor=#1E3A8A;fontSize=16;fontStyle=1;strokeWidth=2;" parent="cluster" vertex="1">
+                    <mxGeometry x="35" y="55" width="1250" height="265" as="geometry"/>
+                </mxCell>
+                <mxCell id="api" value="kube-apiserver&#xa;API REST central" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2563EB;strokeColor=#1D4ED8;fontColor=#FFFFFF;fontSize=15;fontStyle=1;" parent="cp" vertex="1">
+                    <mxGeometry x="465" y="75" width="220" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="etcd" value="etcd&#xa;estado do cluster" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#DBEAFE;strokeColor=#1D4ED8;fontColor=#172554;fontSize=14;fontStyle=1;" parent="cp" vertex="1">
+                    <mxGeometry x="55" y="70" width="170" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="scheduler" value="kube-scheduler&#xa;decide onde rodar Pods" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontColor=#172554;fontSize=14;fontStyle=1;" parent="cp" vertex="1">
+                    <mxGeometry x="285" y="45" width="170" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="controller" value="controller-manager&#xa;reconcilia estado desejado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontColor=#172554;fontSize=14;fontStyle=1;" parent="cp" vertex="1">
+                    <mxGeometry x="285" y="145" width="170" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="cloud-controller" value="cloud-controller-manager&#xa;LB, rotas e volumes cloud" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F2FE;strokeColor=#0284C7;fontColor=#0C4A6E;fontSize=14;fontStyle=1;" parent="cp" vertex="1">
+                    <mxGeometry x="720" y="45" width="210" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="admission" value="Admission Controllers&#xa;validação e mutação" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#7C3AED;fontColor=#3B0764;fontSize=14;fontStyle=1;" parent="cp" vertex="1">
+                    <mxGeometry x="720" y="145" width="210" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="auth" value="AuthN / AuthZ&#xa;RBAC, ServiceAccounts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEE2E2;strokeColor=#DC2626;fontColor=#7F1D1D;fontSize=14;fontStyle=1;" parent="cp" vertex="1">
+                    <mxGeometry x="980" y="75" width="200" height="75" as="geometry"/>
+                </mxCell>
+                <mxCell id="workload-zone" value="Nós Workers" style="swimlane;html=1;startSize=30;rounded=1;whiteSpace=wrap;fillColor=#F0FDF4;strokeColor=#16A34A;fontColor=#14532D;fontSize=16;fontStyle=1;strokeWidth=2;" parent="cluster" vertex="1">
+                    <mxGeometry x="35" y="350" width="1250" height="420" as="geometry"/>
+                </mxCell>
+                <mxCell id="node1" value="Worker Node 1" style="swimlane;html=1;startSize=28;rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#16A34A;fontColor=#14532D;fontSize=14;fontStyle=1;" parent="workload-zone" vertex="1">
+                    <mxGeometry x="35" y="50" width="370" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="n1-kubelet" value="kubelet" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=13;fontStyle=1;" parent="node1" vertex="1">
+                    <mxGeometry x="20" y="45" width="100" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="n1-proxy" value="kube-proxy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=13;fontStyle=1;" parent="node1" vertex="1">
+                    <mxGeometry x="135" y="45" width="100" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="n1-runtime" value="container runtime&#xa;containerd / CRI-O" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=12;fontStyle=1;" parent="node1" vertex="1">
+                    <mxGeometry x="250" y="45" width="100" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="pod-a" value="Pod A&#xa;app + sidecar" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#059669;fontColor=#064E3B;fontSize=13;fontStyle=1;" parent="node1" vertex="1">
+                    <mxGeometry x="35" y="130" width="130" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="pod-b" value="Pod B&#xa;API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#059669;fontColor=#064E3B;fontSize=13;fontStyle=1;" parent="node1" vertex="1">
+                    <mxGeometry x="205" y="130" width="130" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="daemon1" value="DaemonSet&#xa;agent/logs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0FDFA;strokeColor=#0D9488;fontColor=#134E4A;fontSize=13;fontStyle=1;" parent="node1" vertex="1">
+                    <mxGeometry x="120" y="230" width="130" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="node2" value="Worker Node 2" style="swimlane;html=1;startSize=28;rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#16A34A;fontColor=#14532D;fontSize=14;fontStyle=1;" parent="workload-zone" vertex="1">
+                    <mxGeometry x="440" y="50" width="370" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="n2-kubelet" value="kubelet" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=13;fontStyle=1;" parent="node2" vertex="1">
+                    <mxGeometry x="20" y="45" width="100" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="n2-proxy" value="kube-proxy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=13;fontStyle=1;" parent="node2" vertex="1">
+                    <mxGeometry x="135" y="45" width="100" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="n2-runtime" value="container runtime&#xa;containerd / CRI-O" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=12;fontStyle=1;" parent="node2" vertex="1">
+                    <mxGeometry x="250" y="45" width="100" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="pod-c" value="Pod C&#xa;frontend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#059669;fontColor=#064E3B;fontSize=13;fontStyle=1;" parent="node2" vertex="1">
+                    <mxGeometry x="35" y="130" width="130" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="pod-d" value="Pod D&#xa;worker/job" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#059669;fontColor=#064E3B;fontSize=13;fontStyle=1;" parent="node2" vertex="1">
+                    <mxGeometry x="205" y="130" width="130" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="daemon2" value="DaemonSet&#xa;CNI / monitor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0FDFA;strokeColor=#0D9488;fontColor=#134E4A;fontSize=13;fontStyle=1;" parent="node2" vertex="1">
+                    <mxGeometry x="120" y="230" width="130" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="node3" value="Worker Node 3" style="swimlane;html=1;startSize=28;rounded=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#16A34A;fontColor=#14532D;fontSize=14;fontStyle=1;" parent="workload-zone" vertex="1">
+                    <mxGeometry x="845" y="50" width="370" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="n3-kubelet" value="kubelet" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=13;fontStyle=1;" parent="node3" vertex="1">
+                    <mxGeometry x="20" y="45" width="100" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="n3-proxy" value="kube-proxy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=13;fontStyle=1;" parent="node3" vertex="1">
+                    <mxGeometry x="135" y="45" width="100" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="n3-runtime" value="container runtime&#xa;containerd / CRI-O" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=12;fontStyle=1;" parent="node3" vertex="1">
+                    <mxGeometry x="250" y="45" width="100" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="pod-e" value="Pod E&#xa;database client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#059669;fontColor=#064E3B;fontSize=13;fontStyle=1;" parent="node3" vertex="1">
+                    <mxGeometry x="35" y="130" width="130" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="pod-f" value="Pod F&#xa;replica" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECFDF5;strokeColor=#059669;fontColor=#064E3B;fontSize=13;fontStyle=1;" parent="node3" vertex="1">
+                    <mxGeometry x="205" y="130" width="130" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="daemon3" value="DaemonSet&#xa;storage/metrics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0FDFA;strokeColor=#0D9488;fontColor=#134E4A;fontSize=13;fontStyle=1;" parent="node3" vertex="1">
+                    <mxGeometry x="120" y="230" width="130" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="platform-zone" value="Camada de Plataforma" style="swimlane;html=1;startSize=30;rounded=1;whiteSpace=wrap;fillColor=#FFFBEB;strokeColor=#D97706;fontColor=#78350F;fontSize=16;fontStyle=1;strokeWidth=2;" parent="cluster" vertex="1">
+                    <mxGeometry x="35" y="795" width="1250" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="svc" value="Service&#xa;ClusterIP / NodePort / LoadBalancer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;fontColor=#78350F;fontSize=13;fontStyle=1;" parent="platform-zone" vertex="1">
+                    <mxGeometry x="40" y="45" width="220" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="ingress" value="Ingress / Gateway API&#xa;roteamento L7" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;fontColor=#78350F;fontSize=13;fontStyle=1;" parent="platform-zone" vertex="1">
+                    <mxGeometry x="300" y="45" width="190" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="coredns" value="CoreDNS&#xa;descoberta de serviços" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FDE68A;strokeColor=#CA8A04;fontColor=#713F12;fontSize=13;fontStyle=1;" parent="platform-zone" vertex="1">
+                    <mxGeometry x="535" y="45" width="160" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="cni" value="CNI Plugin&#xa;Calico, Cilium, Flannel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#CCFBF1;strokeColor=#0D9488;fontColor=#134E4A;fontSize=13;fontStyle=1;" parent="platform-zone" vertex="1">
+                    <mxGeometry x="740" y="45" width="190" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="storage" value="CSI / StorageClass&#xa;PV e PVC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#7C3AED;fontColor=#3B0764;fontSize=13;fontStyle=1;" parent="platform-zone" vertex="1">
+                    <mxGeometry x="970" y="45" width="210" height="55" as="geometry"/>
+                </mxCell>
+                <mxCell id="external-users" value="Usuários / Admins&#xa;kubectl, Helm" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontColor=#172554;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="20" width="190" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="cicd" value="CI/CD ou GitOps&#xa;Argo CD, Flux" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F2FE;strokeColor=#0284C7;fontColor=#0C4A6E;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="20" width="190" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="registry" value="Container Registry&#xa;imagens OCI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#16A34A;fontColor=#14532D;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1430" y="665" width="200" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="clients" value="Clientes externos&#xa;HTTP / HTTPS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;fontColor=#78350F;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1430" y="220" width="200" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="lb" value="Load Balancer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FED7AA;strokeColor=#EA580C;fontColor=#7C2D12;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1430" y="335" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="external-storage" value="Storage externo&#xa;cloud disk, NFS, SAN" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#7C3AED;fontColor=#3B0764;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1430" y="880" width="200" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="cloud-api" value="Cloud Provider APIs&#xa;rede, LB, volumes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0F2FE;strokeColor=#0284C7;fontColor=#0C4A6E;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="1430" y="445" width="200" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="legend" value="Legenda: azul = controle | verde = execução | amarelo = tráfego/DNS | roxo = storage | vermelho = segurança" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CBD5E1;fontColor=#334155;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="1070" width="1320" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-users-api" value="cria / consulta recursos" style="endArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#2563EB;fontColor=#1E3A8A;fontSize=12;" parent="1" source="external-users" target="api" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-cicd-api" value="aplica manifests" style="endArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#0284C7;fontColor=#0C4A6E;fontSize=12;" parent="1" source="cicd" target="api" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-api-etcd" value="persistência" style="endArrow=block;startArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#1D4ED8;fontColor=#1E3A8A;fontSize=12;" parent="1" source="api" target="etcd" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-scheduler-api" value="watch / bind" style="endArrow=block;startArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#2563EB;fontColor=#1E3A8A;fontSize=12;" parent="1" source="scheduler" target="api" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-controller-api" value="reconcilia" style="endArrow=block;startArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#2563EB;fontColor=#1E3A8A;fontSize=12;" parent="1" source="controller" target="api" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-cloud-api" value="integra" style="endArrow=block;startArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#0284C7;fontColor=#0C4A6E;fontSize=12;" parent="1" source="cloud-controller" target="api" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-admission-api" value="políticas" style="endArrow=block;startArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#7C3AED;fontColor=#3B0764;fontSize=12;" parent="1" source="admission" target="api" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-auth-api" value="autentica / autoriza" style="endArrow=block;startArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#DC2626;fontColor=#7F1D1D;fontSize=12;" parent="1" source="auth" target="api" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-api-n1" value="watch / status" style="endArrow=block;startArrow=block;html=1;rounded=1;dashed=1;strokeWidth=2;strokeColor=#16A34A;fontColor=#14532D;fontSize=12;" parent="1" source="api" target="n1-kubelet" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-api-n2" value="watch / status" style="endArrow=block;startArrow=block;html=1;rounded=1;dashed=1;strokeWidth=2;strokeColor=#16A34A;fontColor=#14532D;fontSize=12;" parent="1" source="api" target="n2-kubelet" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-api-n3" value="watch / status" style="endArrow=block;startArrow=block;html=1;rounded=1;dashed=1;strokeWidth=2;strokeColor=#16A34A;fontColor=#14532D;fontSize=12;" parent="1" source="api" target="n3-kubelet" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-runtime-pod-a" value="executa containers" style="endArrow=block;html=1;rounded=1;strokeWidth=1;strokeColor=#059669;fontColor=#064E3B;fontSize=11;" parent="1" source="n1-runtime" target="pod-a" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-runtime-pod-c" value="executa containers" style="endArrow=block;html=1;rounded=1;strokeWidth=1;strokeColor=#059669;fontColor=#064E3B;fontSize=11;" parent="1" source="n2-runtime" target="pod-c" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-runtime-pod-e" value="executa containers" style="endArrow=block;html=1;rounded=1;strokeWidth=1;strokeColor=#059669;fontColor=#064E3B;fontSize=11;" parent="1" source="n3-runtime" target="pod-e" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-clients-lb" value="requisições" style="endArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#EA580C;fontColor=#7C2D12;fontSize=12;" parent="1" source="clients" target="lb" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-lb-ingress" value="entrada" style="endArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#EA580C;fontColor=#7C2D12;fontSize=12;" parent="1" source="lb" target="ingress" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-ingress-service" value="roteia para Service" style="endArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#D97706;fontColor=#78350F;fontSize=12;" parent="1" source="ingress" target="svc" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-service-pods" value="balanceia Pods" style="endArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#D97706;fontColor=#78350F;fontSize=12;" parent="1" source="svc" target="pod-c" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-service-pods2" value="" style="endArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#D97706;" parent="1" source="svc" target="pod-a" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-service-pods3" value="" style="endArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#D97706;" parent="1" source="svc" target="pod-f" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-coredns-svc" value="resolve nomes" style="endArrow=block;startArrow=block;html=1;rounded=1;strokeWidth=1;strokeColor=#CA8A04;fontColor=#713F12;fontSize=11;" parent="1" source="coredns" target="svc" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-cni-nodes" value="rede Pod-to-Pod" style="endArrow=block;startArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#0D9488;fontColor=#134E4A;fontSize=12;" parent="1" source="cni" target="node2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-cni-node1" value="" style="endArrow=block;startArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#0D9488;" parent="1" source="cni" target="node1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-cni-node3" value="" style="endArrow=block;startArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#0D9488;" parent="1" source="cni" target="node3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-storage-pod" value="monta volumes" style="endArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#7C3AED;fontColor=#3B0764;fontSize=12;" parent="1" source="storage" target="pod-e" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-storage-external" value="provisiona PV" style="endArrow=block;startArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#7C3AED;fontColor=#3B0764;fontSize=12;" parent="1" source="storage" target="external-storage" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-cloud-external" value="cria LB / rotas / discos" style="endArrow=block;startArrow=block;html=1;rounded=1;strokeWidth=2;strokeColor=#0284C7;fontColor=#0C4A6E;fontSize=12;" parent="1" source="cloud-controller" target="cloud-api" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-registry-runtime" value="pull de imagens" style="endArrow=block;html=1;rounded=1;dashed=1;strokeWidth=2;strokeColor=#16A34A;fontColor=#14532D;fontSize=12;" parent="1" source="registry" target="n3-runtime" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-registry-runtime2" value="" style="endArrow=block;html=1;rounded=1;dashed=1;strokeWidth=2;strokeColor=#16A34A;" parent="1" source="registry" target="n2-runtime" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e-registry-runtime3" value="" style="endArrow=block;html=1;rounded=1;dashed=1;strokeWidth=2;strokeColor=#16A34A;" parent="1" source="registry" target="n1-runtime" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
