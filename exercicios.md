@@ -18,16 +18,16 @@ kubectl get pod
 
 ## Exercício 2 - Criar Pod em Namespace
 
-Crie um pod chamado `redis` no namespace `dev`.
+Crie um pod chamado `redis` no namespace `cka`.
 
 ```bash
-kubectl run redis --image=redis:7 --namespace=dev
+kubectl run redis --image=redis:7 --namespace=cka
 ```
 
 Se o namespace não existir:
 
 ```bash
-kubectl create ns dev
+kubectl create ns cka
 ```
 
 ---
@@ -47,20 +47,22 @@ kubectl get deploy
 kubectl get rs
 kubectl get pod
 ```
+![alt text](image-1.png)
+![alt text](image.png)
 
 ---
 
-## Exercício 4 - Criar Deployment com 3 Réplicas
+## Exercício 4 - Criar Deployment com 5 Réplicas
 
 ```bash
-kubectl create deployment web --image=nginx --replicas=3
+kubectl create deployment web --image=nginx --replicas=5
 ```
 
 Se sua versão não suportar `--replicas`:
 
 ```bash
 kubectl create deployment web --image=nginx
-kubectl scale deploy web --replicas=3
+kubectl scale deploy web --replicas=5
 ```
 
 ---
@@ -94,7 +96,7 @@ Aplicar:
 ```bash
 kubectl apply -f deploy.yaml
 ```
-
+![alt text](image-2.png)
 ---
 
 # Exercícios estilo CKA
@@ -120,7 +122,7 @@ Comando para validar:
 ```bash
 kubectl get pod -n cka-lab
 ```
-
+![alt text](image-3.png)
 ---
 
 ## Questão 2
@@ -139,6 +141,7 @@ Validação:
 ```bash
 kubectl get deploy,pod -n cka-lab
 ```
+![alt text](image-4.png)
 
 ---
 
@@ -158,6 +161,8 @@ Validação:
 kubectl get svc -n cka-lab
 ```
 
+![alt text](image-5.png)
+
 ---
 
 ## Questão 4
@@ -169,6 +174,8 @@ Validação:
 ```bash
 kubectl get deploy frontend -n cka-lab
 ```
+
+![alt text](image-6.png)
 
 ---
 
@@ -187,6 +194,8 @@ Validação:
 ```bash
 kubectl describe deploy frontend -n cka-lab
 ```
+
+![alt text](image-7.png)
 
 ---
 
@@ -371,7 +380,22 @@ kubectl top pod
 
 ---
 
-Se você está começando os laboratórios da CKA, recomendo praticar nesta ordem:
+### ETC commnads
+export ETCDCTL_API=3
+```bash
+etcdctl backup
+etcdctl cluster-health
+etcdctl mk
+etcdctl mkdir
+etcdctl set
+etcdctl snapshot save 
+etcdctl endpoint health
+etcdctl get
+etcdctl put
+kubectl exec etcd-master -n kube-system -- sh -c "ETCDCTL_API=3 etcdctl get / --prefix --keys-only --limit=10 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt  --key /etc/kubernetes/pki/etcd/server.key" 
+```
+
+---
 
 1. Pods
 2. Deployments
@@ -385,3 +409,16 @@ Se você está começando os laboratórios da CKA, recomendo praticar nesta orde
 10. Troubleshooting do Control Plane
 11. ETCD Backup/Restore
 12. Upgrade de Cluster
+
+
+---
+
+### Perguntas para Carol
+
+1. ETCD
+2. Api-server
+3. Controll Manager
+4. Scheduller
+5. Controller Manager
+6. Kubelet
+7. Kubeproxy
