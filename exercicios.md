@@ -422,3 +422,39 @@ kubectl exec etcd-master -n kube-system -- sh -c "ETCDCTL_API=3 etcdctl get / --
 5. Controller Manager
 6. Kubelet
 7. Kubeproxy
+
+
+>> https://killercoda.com/chadmcrowell/course/cka
+
+Create a pod declaratively
+List the Pods and their IP addresses
+List all kubernetes services
+Change deployment image
+Create and Scale Apache deployment
+rollback a deployment
+
+List API Resources
+Linux System Services
+Kubelet status
+
+---
+
+>> https://killercoda.com/alexis-carbillet/course/CKA
+Pod debugging
+Rolling updates & rollbacks
+
+---
+
+>> https://killercoda.com/cka-mock-practice
+Manually schedule pod and expose via NodePort
+
+## Kube 
+ps -aux | grep kube-apiserver 
+ps -aux | grep kube-controller-manger
+ps -aux | grep kubelel
+ps -aux | grep kube-shceduler
+
+editar as flags e como editar
+
+sudo systemctl status kubelet
+sudo systemctl status kube-apiserver 
